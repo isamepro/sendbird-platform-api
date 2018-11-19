@@ -1,0 +1,265 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a work-in-progress definition for the SendBird Platform API.",
+    "version": "0.0.1",
+    "title": "SendBird Platform"
+  },
+  "host": "api.sendbird.com",
+  "basePath": "/v3",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/open_channels": {
+      "get": {
+        "tags": [
+          "Open Channels"
+        ],
+        "summary": "Get a list of all Open Channels",
+        "description": "",
+        "operationId": "getOpenChannels",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ChannelList"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/group_channels": {
+      "get": {
+        "tags": [
+          "Group Channels"
+        ],
+        "summary": "Get a list of all Group Channels",
+        "description": "",
+        "operationId": "getGroupChannels",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ChannelList"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Group Channels"
+        ],
+        "summary": "Create a new group channel",
+        "description": "",
+        "operationId": "createGroupChannel",
+        "parameters": [
+          {
+            "$ref": "#/definitions/CreateGroupChannelInput"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ChannelList"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/group_channels/{channel_url}": {
+      "get": {
+        "tags": [
+          "Group Channels"
+        ],
+        "summary": "Get a channel by URL",
+        "description": "",
+        "operationId": "getGroupChannelById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "channel_url",
+            "in": "path",
+            "description": "The unique identifier for the channel",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ChannelList"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "Api-Token",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Channel": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "participant_count": {
+          "type": "integer"
+        },
+        "custom_type": {
+          "type": "string"
+        },
+        "is_ephemeral": {
+          "type": "boolean"
+        },
+        "channel_url": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "cover_url": {
+          "type": "string"
+        },
+        "freeze": {
+          "type": "boolean"
+        },
+        "max_length_message": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "string"
+        },
+        "operators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ChannelList": {
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Channel"
+          }
+        }
+      }
+    },
+    "CreateGroupChannelInput": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "channel_url": {
+          "type": "string"
+        },
+        "cover_url": {
+          "type": "string"
+        },
+        "cover_file": {
+          "type": "string"
+        },
+        "custom_type": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "user_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "operater_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "is_distinct": {
+          "type": "boolean"
+        },
+        "is_public": {
+          "type": "boolean"
+        },
+        "is_ehemeral": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

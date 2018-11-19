@@ -168,5 +168,3 @@ definitions:
         type: boolean
       is_ehemeral:
         type: boolean
-      
-      
