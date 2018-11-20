@@ -19,7 +19,7 @@
         ],
         "summary": "Get a list of all Open Channels",
         "description": "",
-        "operationId": "getOpenChannels",
+        "operationId": "openChannels_getAll",
         "consumes": [
           "application/json"
         ],
@@ -51,7 +51,7 @@
         ],
         "summary": "Get a list of all Group Channels",
         "description": "",
-        "operationId": "getGroupChannels",
+        "operationId": "groupChannels_getAll",
         "consumes": [
           "application/json"
         ],
@@ -81,7 +81,7 @@
         ],
         "summary": "Create a new group channel",
         "description": "",
-        "operationId": "createGroupChannel",
+        "operationId": "groupChannels_create",
         "parameters": [
           {
             "in": "body",
@@ -123,7 +123,7 @@
         ],
         "summary": "Get a channel by URL",
         "description": "",
-        "operationId": "getGroupChannelById",
+        "operationId": "groupChannels_getById",
         "consumes": [
           "application/json"
         ],
@@ -137,6 +137,107 @@
             "description": "The unique identifier for the channel",
             "required": true,
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Channel"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/group_channels/{channel_url}/members/{user_id}": {
+      "get": {
+        "tags": [
+          "Group Channels"
+        ],
+        "summary": "Check if a user is a member of a Group Channel",
+        "description": "",
+        "operationId": "groupChannels_checkIfMember",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "channel_url",
+            "in": "path",
+            "description": "The URL for the channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "The URL for the user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/group_channels/{channel_url}/invite": {
+      "post": {
+        "tags": [
+          "Group Channels"
+        ],
+        "summary": "Invite members to a Group Channel",
+        "description": "",
+        "operationId": "groupChannels_inviteMembers",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel_url",
+            "description": "The unique identifier for the channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of IDs of users to invite",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         ],
         "responses": {
