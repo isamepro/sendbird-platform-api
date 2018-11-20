@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendBird.Platform", "SendBi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configs", "Configs", "{093CE1D5-075A-4354-920D-087AFE1A4D0B}"
 	ProjectSection(SolutionItems) = preProject
+		swagger.json = swagger.json
 		swagger.yaml = swagger.yaml
 		SwaggerConfig.nswag = SwaggerConfig.nswag
 	EndProjectSection

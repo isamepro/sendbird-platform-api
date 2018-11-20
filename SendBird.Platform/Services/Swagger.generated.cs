@@ -36,13 +36,13 @@ namespace SendBird.Platform.Services
         /// <summary>Create a new group channel</summary>
         /// <returns>Success</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Channel> CreateGroupChannelAsync(CreateGroupChannelInput unnamed);
+        System.Threading.Tasks.Task<Channel> CreateGroupChannelAsync(CreateGroupChannelInput body);
     
         /// <summary>Create a new group channel</summary>
         /// <returns>Success</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        System.Threading.Tasks.Task<Channel> CreateGroupChannelAsync(CreateGroupChannelInput unnamed, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Channel> CreateGroupChannelAsync(CreateGroupChannelInput body, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Get a channel by URL</summary>
         /// <param name="channel_url">The unique identifier for the channel</param>
@@ -254,16 +254,16 @@ namespace SendBird.Platform.Services
         /// <summary>Create a new group channel</summary>
         /// <returns>Success</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<Channel> CreateGroupChannelAsync(CreateGroupChannelInput unnamed)
+        public System.Threading.Tasks.Task<Channel> CreateGroupChannelAsync(CreateGroupChannelInput body)
         {
-            return CreateGroupChannelAsync(unnamed, System.Threading.CancellationToken.None);
+            return CreateGroupChannelAsync(body, System.Threading.CancellationToken.None);
         }
     
         /// <summary>Create a new group channel</summary>
         /// <returns>Success</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async System.Threading.Tasks.Task<Channel> CreateGroupChannelAsync(CreateGroupChannelInput unnamed, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<Channel> CreateGroupChannelAsync(CreateGroupChannelInput body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("group_channels");
@@ -273,7 +273,9 @@ namespace SendBird.Platform.Services
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value));
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
                     request_.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
     

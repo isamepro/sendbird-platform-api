@@ -84,7 +84,12 @@
         "operationId": "createGroupChannel",
         "parameters": [
           {
-            "$ref": "#/definitions/CreateGroupChannelInput"
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateGroupChannelInput"
+            }
           }
         ],
         "consumes": [
