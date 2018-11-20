@@ -97,7 +97,7 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/ChannelList"
+              "$ref": "#/definitions/Channel"
             }
           },
           "405": {
@@ -138,7 +138,7 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/ChannelList"
+              "$ref": "#/definitions/Channel"
             }
           },
           "405": {
@@ -256,7 +256,7 @@
         "is_public": {
           "type": "boolean"
         },
-        "is_ehemeral": {
+        "is_ephemeral": {
           "type": "boolean"
         }
       }
