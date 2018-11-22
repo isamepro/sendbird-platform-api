@@ -233,10 +233,7 @@
             "description": "List of IDs of users to invite",
             "required": true,
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
+              "$ref": "#/definitions/InviteUsersInput"
             }
           }
         ],
@@ -246,6 +243,92 @@
             "schema": {
               "$ref": "#/definitions/Channel"
             }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create a new user",
+        "description": "",
+        "operationId": "users_create",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUserInput"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get a user by ID",
+        "description": "",
+        "operationId": "users_getById",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "The unique identifier for the user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "description": "No user found"
           },
           "405": {
             "description": "Invalid input"
@@ -363,6 +446,61 @@
           "type": "boolean"
         },
         "is_ephemeral": {
+          "type": "boolean"
+        }
+      }
+    },
+    "InviteUsersInput": {
+      "type": "object",
+      "properties": {
+        "user_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "profile_url": {
+          "type": "string"
+        },
+        "access_token": {
+          "type": "string"
+        },
+        "is_active": {
+          "type": "boolean"
+        },
+        "is_online": {
+          "type": "boolean"
+        },
+        "last_seen_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "CreateUserInput": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "profile_url": {
+          "type": "string"
+        },
+        "issue_access_token": {
           "type": "boolean"
         }
       }

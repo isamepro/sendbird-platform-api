@@ -223,7 +223,7 @@ namespace SendBird.Platform.Services
         /// <param name="body">List of IDs of users to invite</param>
         /// <returns>Success</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Channel> InviteMembersAsync(string channel_url, System.Collections.Generic.IEnumerable<string> body);
+        System.Threading.Tasks.Task<Channel> InviteMembersAsync(string channel_url, InviteUsersInput body);
     
         /// <summary>Invite members to a Group Channel</summary>
         /// <param name="channel_url">The unique identifier for the channel</param>
@@ -231,7 +231,7 @@ namespace SendBird.Platform.Services
         /// <returns>Success</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        System.Threading.Tasks.Task<Channel> InviteMembersAsync(string channel_url, System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Channel> InviteMembersAsync(string channel_url, InviteUsersInput body, System.Threading.CancellationToken cancellationToken);
     
     }
     
@@ -621,7 +621,7 @@ namespace SendBird.Platform.Services
         /// <param name="body">List of IDs of users to invite</param>
         /// <returns>Success</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<Channel> InviteMembersAsync(string channel_url, System.Collections.Generic.IEnumerable<string> body)
+        public System.Threading.Tasks.Task<Channel> InviteMembersAsync(string channel_url, InviteUsersInput body)
         {
             return InviteMembersAsync(channel_url, body, System.Threading.CancellationToken.None);
         }
@@ -632,7 +632,7 @@ namespace SendBird.Platform.Services
         /// <returns>Success</returns>
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async System.Threading.Tasks.Task<Channel> InviteMembersAsync(string channel_url, System.Collections.Generic.IEnumerable<string> body, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<Channel> InviteMembersAsync(string channel_url, InviteUsersInput body, System.Threading.CancellationToken cancellationToken)
         {
             if (channel_url == null)
                 throw new System.ArgumentNullException("channel_url");
@@ -744,6 +744,275 @@ namespace SendBird.Platform.Services
         }
     }
     
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "11.20.1.0 (NJsonSchema v9.11.0.0 (Newtonsoft.Json v9.0.0.0))")]
+    public partial interface ISendBirdUsersService
+    {
+        /// <summary>Create a new user</summary>
+        /// <returns>Success</returns>
+        /// <exception cref="SwaggerException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<User> CreateAsync(CreateUserInput body);
+    
+        /// <summary>Create a new user</summary>
+        /// <returns>Success</returns>
+        /// <exception cref="SwaggerException">A server side error occurred.</exception>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        System.Threading.Tasks.Task<User> CreateAsync(CreateUserInput body, System.Threading.CancellationToken cancellationToken);
+    
+        /// <summary>Get a user by ID</summary>
+        /// <param name="user_id">The unique identifier for the user</param>
+        /// <returns>Success</returns>
+        /// <exception cref="SwaggerException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<User> GetByIdAsync(string user_id);
+    
+        /// <summary>Get a user by ID</summary>
+        /// <param name="user_id">The unique identifier for the user</param>
+        /// <returns>Success</returns>
+        /// <exception cref="SwaggerException">A server side error occurred.</exception>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        System.Threading.Tasks.Task<User> GetByIdAsync(string user_id, System.Threading.CancellationToken cancellationToken);
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "11.20.1.0 (NJsonSchema v9.11.0.0 (Newtonsoft.Json v9.0.0.0))")]
+    public partial class SendBirdUsersService : ISendBirdUsersService
+    {
+        private System.Net.Http.HttpClient _httpClient;
+        private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
+    
+        public SendBirdUsersService(System.Net.Http.HttpClient httpClient)
+        {
+            _httpClient = httpClient; 
+            _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(() => 
+            {
+                var settings = new Newtonsoft.Json.JsonSerializerSettings();
+                UpdateJsonSerializerSettings(settings);
+                return settings;
+            });
+        }
+    
+        protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return _settings.Value; } }
+    
+        partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
+        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
+        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
+        partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
+    
+        /// <summary>Create a new user</summary>
+        /// <returns>Success</returns>
+        /// <exception cref="SwaggerException">A server side error occurred.</exception>
+        public System.Threading.Tasks.Task<User> CreateAsync(CreateUserInput body)
+        {
+            return CreateAsync(body, System.Threading.CancellationToken.None);
+        }
+    
+        /// <summary>Create a new user</summary>
+        /// <returns>Success</returns>
+        /// <exception cref="SwaggerException">A server side error occurred.</exception>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public async System.Threading.Tasks.Task<User> CreateAsync(CreateUserInput body, System.Threading.CancellationToken cancellationToken)
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("users");
+    
+            var client_ = _httpClient;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value));
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+    
+                    PrepareRequest(client_, request_, urlBuilder_);
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client_, request_, url_);
+    
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+    
+                        ProcessResponse(client_, response_);
+    
+                        var status_ = ((int)response_.StatusCode).ToString();
+                        if (status_ == "201") 
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                            var result_ = default(User); 
+                            try
+                            {
+                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(responseData_, _settings.Value);
+                                return result_; 
+                            } 
+                            catch (System.Exception exception_) 
+                            {
+                                throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+                            }
+                        }
+                        else
+                        if (status_ == "405") 
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                            throw new SwaggerException("Invalid input", (int)response_.StatusCode, responseData_, headers_, null);
+                        }
+                        else
+                        if (status_ != "200" && status_ != "204")
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                        }
+            
+                        return default(User);
+                    }
+                    finally
+                    {
+                        if (response_ != null)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+            }
+        }
+    
+        /// <summary>Get a user by ID</summary>
+        /// <param name="user_id">The unique identifier for the user</param>
+        /// <returns>Success</returns>
+        /// <exception cref="SwaggerException">A server side error occurred.</exception>
+        public System.Threading.Tasks.Task<User> GetByIdAsync(string user_id)
+        {
+            return GetByIdAsync(user_id, System.Threading.CancellationToken.None);
+        }
+    
+        /// <summary>Get a user by ID</summary>
+        /// <param name="user_id">The unique identifier for the user</param>
+        /// <returns>Success</returns>
+        /// <exception cref="SwaggerException">A server side error occurred.</exception>
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        public async System.Threading.Tasks.Task<User> GetByIdAsync(string user_id, System.Threading.CancellationToken cancellationToken)
+        {
+            if (user_id == null)
+                throw new System.ArgumentNullException("user_id");
+    
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append("users/{user_id}");
+            urlBuilder_.Replace("{user_id}", System.Uri.EscapeDataString(ConvertToString(user_id, System.Globalization.CultureInfo.InvariantCulture)));
+    
+            var client_ = _httpClient;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+    
+                    PrepareRequest(client_, request_, urlBuilder_);
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client_, request_, url_);
+    
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+    
+                        ProcessResponse(client_, response_);
+    
+                        var status_ = ((int)response_.StatusCode).ToString();
+                        if (status_ == "200") 
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                            var result_ = default(User); 
+                            try
+                            {
+                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<User>(responseData_, _settings.Value);
+                                return result_; 
+                            } 
+                            catch (System.Exception exception_) 
+                            {
+                                throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+                            }
+                        }
+                        else
+                        if (status_ == "401") 
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                            throw new SwaggerException("No user found", (int)response_.StatusCode, responseData_, headers_, null);
+                        }
+                        else
+                        if (status_ == "405") 
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                            throw new SwaggerException("Invalid input", (int)response_.StatusCode, responseData_, headers_, null);
+                        }
+                        else
+                        if (status_ != "200" && status_ != "204")
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false); 
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                        }
+            
+                        return default(User);
+                    }
+                    finally
+                    {
+                        if (response_ != null)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+            }
+        }
+    
+        private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
+        {
+            if (value is System.Enum)
+            {
+                string name = System.Enum.GetName(value.GetType(), value);
+                if (name != null)
+                {
+                    var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
+                    if (field != null)
+                    {
+                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
+                            as System.Runtime.Serialization.EnumMemberAttribute;
+                        if (attribute != null)
+                        {
+                            return attribute.Value;
+                        }
+                    }
+                }
+            }
+            else if (value is byte[])
+            {
+                return System.Convert.ToBase64String((byte[]) value);
+            }
+            else if (value != null && value.GetType().IsArray)
+            {
+                var array = System.Linq.Enumerable.OfType<object>((System.Array) value);
+                return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
+            }
+        
+            return System.Convert.ToString(value, cultureInfo);
+        }
+    }
+    
     
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.11.0.0 (Newtonsoft.Json v9.0.0.0)")]
@@ -759,7 +1028,7 @@ namespace SendBird.Platform.Services
         private bool? _freeze;
         private int? _max_length_message;
         private string _data;
-        private System.Collections.ObjectModel.ObservableCollection<string> _operators;
+        private System.Collections.Generic.IEnumerable<string> _operators;
     
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -903,7 +1172,7 @@ namespace SendBird.Platform.Services
         }
     
         [Newtonsoft.Json.JsonProperty("operators", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.ObjectModel.ObservableCollection<string> Operators
+        public System.Collections.Generic.IEnumerable<string> Operators
         {
             get { return _operators; }
             set 
@@ -940,10 +1209,10 @@ namespace SendBird.Platform.Services
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.11.0.0 (Newtonsoft.Json v9.0.0.0)")]
     public partial class ChannelList : System.ComponentModel.INotifyPropertyChanged
     {
-        private System.Collections.ObjectModel.ObservableCollection<Channel> _channels;
+        private System.Collections.Generic.IEnumerable<Channel> _channels;
     
         [Newtonsoft.Json.JsonProperty("channels", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.ObjectModel.ObservableCollection<Channel> Channels
+        public System.Collections.Generic.IEnumerable<Channel> Channels
         {
             get { return _channels; }
             set 
@@ -986,8 +1255,8 @@ namespace SendBird.Platform.Services
         private string _cover_file;
         private string _custom_type;
         private string _data;
-        private System.Collections.ObjectModel.ObservableCollection<string> _user_ids;
-        private System.Collections.ObjectModel.ObservableCollection<string> _operater_ids;
+        private System.Collections.Generic.IEnumerable<string> _user_ids;
+        private System.Collections.Generic.IEnumerable<string> _operater_ids;
         private bool? _is_distinct;
         private bool? _is_public;
         private bool? _is_ephemeral;
@@ -1077,7 +1346,7 @@ namespace SendBird.Platform.Services
         }
     
         [Newtonsoft.Json.JsonProperty("user_ids", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.ObjectModel.ObservableCollection<string> User_ids
+        public System.Collections.Generic.IEnumerable<string> User_ids
         {
             get { return _user_ids; }
             set 
@@ -1091,7 +1360,7 @@ namespace SendBird.Platform.Services
         }
     
         [Newtonsoft.Json.JsonProperty("operater_ids", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public System.Collections.ObjectModel.ObservableCollection<string> Operater_ids
+        public System.Collections.Generic.IEnumerable<string> Operater_ids
         {
             get { return _operater_ids; }
             set 
@@ -1154,6 +1423,261 @@ namespace SendBird.Platform.Services
         public static CreateGroupChannelInput FromJson(string data)
         {
             return Newtonsoft.Json.JsonConvert.DeserializeObject<CreateGroupChannelInput>(data);
+        }
+    
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) 
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.11.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public partial class InviteUsersInput : System.ComponentModel.INotifyPropertyChanged
+    {
+        private System.Collections.Generic.IEnumerable<string> _user_ids;
+    
+        [Newtonsoft.Json.JsonProperty("user_ids", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.IEnumerable<string> User_ids
+        {
+            get { return _user_ids; }
+            set 
+            {
+                if (_user_ids != value)
+                {
+                    _user_ids = value; 
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        public string ToJson() 
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
+        
+        public static InviteUsersInput FromJson(string data)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<InviteUsersInput>(data);
+        }
+    
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) 
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.11.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public partial class User : System.ComponentModel.INotifyPropertyChanged
+    {
+        private string _user_id;
+        private string _nickname;
+        private string _profile_url;
+        private string _access_token;
+        private bool? _is_active;
+        private bool? _is_online;
+        private long? _last_seen_at;
+    
+        [Newtonsoft.Json.JsonProperty("user_id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string User_id
+        {
+            get { return _user_id; }
+            set 
+            {
+                if (_user_id != value)
+                {
+                    _user_id = value; 
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [Newtonsoft.Json.JsonProperty("nickname", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Nickname
+        {
+            get { return _nickname; }
+            set 
+            {
+                if (_nickname != value)
+                {
+                    _nickname = value; 
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [Newtonsoft.Json.JsonProperty("profile_url", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Profile_url
+        {
+            get { return _profile_url; }
+            set 
+            {
+                if (_profile_url != value)
+                {
+                    _profile_url = value; 
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [Newtonsoft.Json.JsonProperty("access_token", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Access_token
+        {
+            get { return _access_token; }
+            set 
+            {
+                if (_access_token != value)
+                {
+                    _access_token = value; 
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [Newtonsoft.Json.JsonProperty("is_active", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool? Is_active
+        {
+            get { return _is_active; }
+            set 
+            {
+                if (_is_active != value)
+                {
+                    _is_active = value; 
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [Newtonsoft.Json.JsonProperty("is_online", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool? Is_online
+        {
+            get { return _is_online; }
+            set 
+            {
+                if (_is_online != value)
+                {
+                    _is_online = value; 
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [Newtonsoft.Json.JsonProperty("last_seen_at", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public long? Last_seen_at
+        {
+            get { return _last_seen_at; }
+            set 
+            {
+                if (_last_seen_at != value)
+                {
+                    _last_seen_at = value; 
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        public string ToJson() 
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
+        
+        public static User FromJson(string data)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<User>(data);
+        }
+    
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) 
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "9.11.0.0 (Newtonsoft.Json v9.0.0.0)")]
+    public partial class CreateUserInput : System.ComponentModel.INotifyPropertyChanged
+    {
+        private string _user_id;
+        private string _nickname;
+        private string _profile_url;
+        private bool? _issue_access_token;
+    
+        [Newtonsoft.Json.JsonProperty("user_id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string User_id
+        {
+            get { return _user_id; }
+            set 
+            {
+                if (_user_id != value)
+                {
+                    _user_id = value; 
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [Newtonsoft.Json.JsonProperty("nickname", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Nickname
+        {
+            get { return _nickname; }
+            set 
+            {
+                if (_nickname != value)
+                {
+                    _nickname = value; 
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [Newtonsoft.Json.JsonProperty("profile_url", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Profile_url
+        {
+            get { return _profile_url; }
+            set 
+            {
+                if (_profile_url != value)
+                {
+                    _profile_url = value; 
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [Newtonsoft.Json.JsonProperty("issue_access_token", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public bool? Issue_access_token
+        {
+            get { return _issue_access_token; }
+            set 
+            {
+                if (_issue_access_token != value)
+                {
+                    _issue_access_token = value; 
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        public string ToJson() 
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(this);
+        }
+        
+        public static CreateUserInput FromJson(string data)
+        {
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<CreateUserInput>(data);
         }
     
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
