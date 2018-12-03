@@ -1019,7 +1019,7 @@ namespace SendBird.Platform.Services
     public partial class Channel : System.ComponentModel.INotifyPropertyChanged
     {
         private string _name;
-        private int? _participant_count;
+        private int? _member_count;
         private string _custom_type;
         private bool? _is_ephemeral;
         private string _channel_url;
@@ -1045,15 +1045,15 @@ namespace SendBird.Platform.Services
             }
         }
     
-        [Newtonsoft.Json.JsonProperty("participant_count", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
-        public int? Participant_count
+        [Newtonsoft.Json.JsonProperty("member_count", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Member_count
         {
-            get { return _participant_count; }
+            get { return _member_count; }
             set 
             {
-                if (_participant_count != value)
+                if (_member_count != value)
                 {
-                    _participant_count = value; 
+                    _member_count = value; 
                     RaisePropertyChanged();
                 }
             }

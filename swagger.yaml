@@ -230,7 +230,7 @@ definitions:
     properties:
       name:
         type: string
-      participant_count:
+      member_count:
         type: integer
       custom_type:
         type: string
