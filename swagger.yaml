@@ -181,7 +181,7 @@ paths:
       produces:
         - application/json
       responses:
-        '201':
+        '200':
           description: Success
           schema:
             $ref: '#/definitions/User'
