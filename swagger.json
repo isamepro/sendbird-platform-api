@@ -280,7 +280,7 @@
           "application/json"
         ],
         "responses": {
-          "201": {
+          "200": {
             "description": "Success",
             "schema": {
               "$ref": "#/definitions/User"
@@ -329,6 +329,66 @@
           },
           "401": {
             "description": "No user found"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/{channel_type}/{channel_url}/messages": {
+      "post": {
+        "tags": [
+          "Messages"
+        ],
+        "summary": "Send a message",
+        "description": "",
+        "operationId": "messages_sendMessage",
+        "parameters": [
+          {
+            "name": "channel_type",
+            "in": "path",
+            "description": "Specifies the type of the channel. Either open_channels or group_channels.",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "open_channels",
+              "group_channels"
+            ]
+          },
+          {
+            "name": "channel_url",
+            "in": "path",
+            "description": "The unique identifier for the channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendMessageInput"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
           },
           "405": {
             "description": "Invalid input"
@@ -502,6 +562,85 @@
         },
         "issue_access_token": {
           "type": "boolean"
+        }
+      }
+    },
+    "SendMessageInput": {
+      "type": "object",
+      "properties": {
+        "message_type": {
+          "type": "string",
+          "enum": [
+            "MESG",
+            "FILE",
+            "ADMM"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "is_silent": {
+          "type": "boolean",
+          "default": false
+        },
+        "custom_type": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "send_push": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "message_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "MESG",
+            "FILE",
+            "ADMM"
+          ]
+        },
+        "custom_type": {
+          "type": "string"
+        },
+        "channel_url": {
+          "type": "string"
+        },
+        "mention_type": {
+          "type": "string"
+        },
+        "mentioned_users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
+        },
+        "is_removed": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     }
