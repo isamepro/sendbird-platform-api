@@ -288,10 +288,53 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "Success"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/group_channels/{channel_url}/metadata": {
+      "post": {
+        "tags": [
+          "Group Channels"
+        ],
+        "summary": "Creates a channel metadata's items to store in a channel",
+        "description": "",
+        "operationId": "groupChannels_createMetadata",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "channel_url",
+            "description": "The unique identifier for the channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
             "schema": {
-              "$ref": "#/definitions/Channel"
+              "$ref": "#/definitions/CreateMetadataInput"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           },
           "405": {
             "description": "Invalid input"
@@ -375,6 +418,62 @@
             "schema": {
               "$ref": "#/definitions/User"
             }
+          },
+          "401": {
+            "description": "No user found"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/users/{user_id}/push_preference/{channel_url}": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Set a users notification preferences for a channel",
+        "description": "",
+        "operationId": "users_setChannelNotificationPreferences",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "The unique identifier for the user",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "channel_url",
+            "in": "path",
+            "description": "The unique identifier for the channel",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NotificationPreferences"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           },
           "401": {
             "description": "No user found"
@@ -652,6 +751,17 @@
         }
       }
     },
+    "CreateMetadataInput": {
+      "type": "object",
+      "properties": {
+        "metadata": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "Message": {
       "type": "object",
       "properties": {
@@ -698,6 +808,14 @@
         "updated_at": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "NotificationPreferences": {
+      "type": "object",
+      "properties": {
+        "enable": {
+          "type": "boolean"
         }
       }
     }
